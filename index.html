@@ -273,7 +273,11 @@
       .burger { display: flex; }
       .split, .hero, .counter .split, .visit-grid { grid-template-columns: 1fr !important; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
-      .hero-media { width: 100%; }
+      .hero > div:first-child { text-align: center; }
+      .hero-lede { margin-inline: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-locations { justify-content: center; }
+      .hero-media { width: 100%; margin-inline: auto; }
     }
     @media (max-width: 520px) {
       .footer-grid { grid-template-columns: 1fr; }
