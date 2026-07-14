@@ -139,6 +139,8 @@
     .mobile-menu.open { display: flex; flex-direction: column; gap: 4px; }
     .mobile-menu a { color: var(--ink); font-weight: 600; font-size: 17px; padding: 12px 0; border-bottom: 1px solid rgba(43,36,29,.06); }
     .mobile-menu a:last-child { border: none; }
+    .mobile-menu-label { color: var(--muted); font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding-top: 12px; }
+    .mobile-menu .location-link { padding-left: 16px; }
     .mobile-menu .btn { margin-top: 12px; text-align: center; padding: 14px; }
 
     /* ---------- Split layout (image + text) ---------- */
@@ -314,13 +316,12 @@
     </div>
 
     <div class="mobile-menu" id="mobileMenu">
-      <a href="https://thelionsdencafe.co.uk/">Overview</a>
-      <a href="https://thelionsdencafe.co.uk/venue/lions-den-haslemere/">Haslemere</a>
-      <a href="https://thelionsdencafe.co.uk/venue/lions-den-midhurst/">Midhurst</a>
-      <a href="https://thelionsdencafe.co.uk/menu/">Our Menu</a>
+      <span class="mobile-menu-label">Locations</span>
+      <a class="location-link" href="https://thelionsdencafe.co.uk/venue/lions-den-haslemere/">Haslemere</a>
+      <a class="location-link" href="https://thelionsdencafe.co.uk/venue/lions-den-midhurst/">Midhurst</a>
       <a href="https://thelionsdencafe.co.uk/gallery/">Gallery</a>
       <a href="https://thelionsdencafe.co.uk/contact-us/">Contact Us</a>
-      <a class="btn btn-primary" href="https://thelionsdencafe.co.uk/menu/">View Menu</a>
+      <a class="btn btn-primary" href="https://thelionsdencafe.co.uk/menu/">Menu</a>
     </div>
   </header>
 
