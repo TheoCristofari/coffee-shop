@@ -1,10 +1,526 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow, noarchive">
-  <title></title>
+  <title>The Lion's Den Café — Proudly Local, Fiercely Independent</title>
+  <meta name="description" content="The Lion's Den is a proudly local and fiercely independent chain of good time cafes in Haslemere and Midhurst. All-day homemade brunch, counter food and award-winning Moonroast coffee.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesque:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Design tokens ---------- */
+    :root {
+      --cream:      #f5efe4;
+      --cream-2:    #ece2d1;
+      --card:       #fffdf8;
+      --ink:        #2b241d;
+      --ink-2:      #3f362d;
+      --muted:      #6b5f52;
+      --terracotta: #bd6440;
+      --terracotta-dark: #a5502f;
+      --green:      #4a5d43;
+      --gold:       #e7b877;
+      --star:       #f2a900;
+      --shadow-img: 0 24px 54px rgba(43, 36, 29, .18);
+      --wrap: 1200px;
+      --pad: clamp(20px, 4vw, 44px);
+      --font-head: "Bricolage Grotesque", system-ui, sans-serif;
+      --font-body: "Hanken Grotesque", system-ui, sans-serif;
+    }
+
+    /* ---------- Base ---------- */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
+    }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3, h4 { font-family: var(--font-head); margin: 0; }
+    a { color: var(--terracotta); text-decoration: none; transition: color .2s; }
+    a:hover { color: var(--terracotta-dark); }
+
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding-inline: var(--pad); }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 12.5px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--terracotta);
+    }
+    .section-title {
+      font-weight: 800;
+      font-size: clamp(34px, 4.8vw, 58px);
+      line-height: 1; letter-spacing: -.025em;
+      color: var(--ink);
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-block;
+      font-weight: 600; font-size: 16px;
+      padding: 15px 30px;
+      transition: transform .25s, background .2s, color .2s, border-color .2s;
+      cursor: pointer;
+    }
+    .btn-primary { background: var(--terracotta); color: #fff; }
+    .btn-primary:hover { background: var(--terracotta-dark); color: #fff; transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid rgba(43,36,29,.18); }
+    .btn-ghost:hover { border-color: var(--ink); color: var(--ink); background: rgba(43,36,29,.04); transform: translateY(-2px); }
+
+    /* image with signature shadow + hover zoom */
+    .img-frame { position: relative; overflow: hidden; box-shadow: var(--shadow-img); }
+    .img-frame img { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+    .img-frame:hover img { transform: scale(1.03); }
+    .ratio-45 { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(245, 239, 228, .86);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: box-shadow .3s, border-color .3s;
+    }
+    .site-header.scrolled {
+      box-shadow: 0 8px 28px rgba(43,36,29,.10);
+      border-bottom-color: rgba(43,36,29,.08);
+    }
+    .header-inner {
+      max-width: var(--wrap); margin: 0 auto;
+      padding-inline: var(--pad); height: 76px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .brand img { height: 50px; width: auto; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+    .brand:hover img { transform: rotate(-2.5deg) scale(1.05); }
+
+    .nav { display: flex; align-items: center; justify-content: center; gap: 36px; flex: 1; }
+    .nav-link { color: var(--ink); font-weight: 500; font-size: 15px; }
+    .nav-link:hover { color: var(--terracotta); }
+
+    .dropdown { position: relative; }
+    .dropdown-trigger {
+      cursor: pointer; background: none; border: none;
+      font: inherit; color: var(--ink); font-weight: 500; font-size: 15px; padding: 0;
+    }
+    .dropdown-menu {
+      position: absolute; top: calc(100% + 14px); left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      opacity: 0; visibility: hidden; transition: .22s;
+      min-width: 210px; background: var(--card);
+      border: 1px solid rgba(43,36,29,.09);
+      box-shadow: 0 18px 40px rgba(43,36,29,.14); padding: 8px;
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-menu a { display: block; padding: 11px 14px; color: var(--ink); font-weight: 500; font-size: 14.5px; }
+    .dropdown-menu a:hover { background: rgba(43,36,29,.05); }
+
+    .header-cta { padding: 11px 20px; font-size: 14.5px; white-space: nowrap; }
+
+    .burger {
+      display: none; cursor: pointer; background: none; border: none;
+      flex-direction: column; gap: 5px; padding: 8px;
+    }
+    .burger span { width: 24px; height: 2px; background: var(--ink); border-radius: 2px; display: block; }
+
+    .mobile-menu { display: none; border-top: 1px solid rgba(43,36,29,.08); background: var(--cream); padding: 10px var(--pad) 22px; }
+    .mobile-menu.open { display: flex; flex-direction: column; gap: 4px; }
+    .mobile-menu a { color: var(--ink); font-weight: 600; font-size: 17px; padding: 12px 0; border-bottom: 1px solid rgba(43,36,29,.06); }
+    .mobile-menu a:last-child { border: none; }
+    .mobile-menu .btn { margin-top: 12px; text-align: center; padding: 14px; }
+
+    /* ---------- Split layout (image + text) ---------- */
+    .split {
+      max-width: var(--wrap); margin: 0 auto; padding: clamp(56px,8vw,104px) var(--pad);
+      display: grid; gap: clamp(32px,5vw,72px); align-items: center;
+    }
+    .split.text-left  { grid-template-columns: 1.05fr .95fr; }
+    .split.text-right { grid-template-columns: .95fr 1.05fr; }
+
+    /* ---------- Hero ---------- */
+    .hero { padding-block: clamp(40px,5vw,64px); grid-template-columns: 1.05fr .95fr; }
+    .hero h1 { font-weight: 800; font-size: clamp(42px,6.2vw,76px); line-height: .98; letter-spacing: -.025em; margin-bottom: 22px; }
+    .hero .eyebrow { margin-bottom: 22px; }
+    .hero-lede { font-size: clamp(18px,2vw,21px); line-height: 1.6; color: var(--muted); max-width: 44ch; margin: 0 0 22px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 22px; }
+    .hero-locations { display: inline-flex; align-items: center; gap: 9px; font-size: 14.5px; font-weight: 600; color: var(--muted); }
+    .hero-locations .dot { color: #c9bdac; }
+
+    .hero-media { position: relative; width: 90%; margin-left: auto; }
+
+    .review-pill {
+      position: absolute; z-index: 3;
+      background: var(--card); border: 1px solid rgba(43,36,29,.08);
+      box-shadow: 0 16px 36px rgba(43,36,29,.2);
+      padding: 11px 15px; display: flex; flex-direction: column; gap: 3px;
+      animation: float 5s ease-in-out infinite;
+    }
+    .review-pill .stars { color: var(--star); font-size: 12px; letter-spacing: 1px; }
+    .review-pill .quote { font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+    .review-pill.p1 { top: 7%;    left: -26px; }
+    .review-pill.p2 { top: 45%;   right: -26px; animation-duration: 5.6s; animation-delay: .8s; }
+    .review-pill.p3 { bottom: 7%; left: -14px;  animation-duration: 5.3s; animation-delay: .4s; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+
+    /* ---------- Counter (dark) ---------- */
+    .counter { background: var(--ink); }
+    .counter .split { grid-template-columns: 1fr 1fr; padding-block: clamp(48px,6vw,88px); }
+    .counter .eyebrow { color: var(--gold); margin-bottom: 18px; }
+    .counter h2 { color: #f7f1e6; margin-bottom: 20px; }
+    .counter p { font-size: clamp(16px,1.9vw,19px); line-height: 1.6; color: #e9dfd0; margin: 0 0 30px; max-width: 52ch; }
+    .chips { display: flex; flex-wrap: wrap; gap: 12px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 10px 16px; font-weight: 600; font-size: 14.5px; color: #f2eadc;
+      background: rgba(247,241,230,.08); border: 1px solid rgba(247,241,230,.18);
+      transition: background .25s, transform .25s;
+    }
+    .chip:hover { background: rgba(247,241,230,.15); transform: translateY(-2px); }
+    .chip .mark { color: var(--gold); }
+    .counter .img-frame img { transition-duration: .6s; }
+    .counter .img-frame:hover img { transform: scale(1.04); }
+
+    /* ---------- Menu section ---------- */
+    .lede { font-size: 17.5px; line-height: 1.6; color: var(--ink-2); margin: 0 0 16px; max-width: 48ch; }
+    .body-copy { font-size: 16.5px; line-height: 1.65; color: var(--muted); margin: 0 0 30px; max-width: 50ch; }
+
+    .partner { display: flex; gap: 22px; align-items: center; margin: 0 0 30px; transition: transform .3s; }
+    .partner:hover { transform: translateY(-4px); }
+    .partner img { width: 96px; height: auto; flex: none; }
+    .partner .eyebrow { font-size: 11px; margin-bottom: 7px; }
+    .partner h3 { font-weight: 700; font-size: 21px; line-height: 1.1; margin: 0 0 8px; color: var(--ink); }
+    .partner p { font-size: 15px; line-height: 1.6; color: var(--muted); margin: 0 0 14px; }
+    .partner .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .partner .tag {
+      font-size: 12.5px; font-weight: 600; color: var(--ink-2);
+      padding: 5px 11px; background: rgba(43,36,29,.05); border: 1px solid rgba(43,36,29,.14);
+    }
+
+    .badge {
+      position: absolute; top: 20px; left: 20px;
+      background: var(--green); color: #fff; font-weight: 600;
+      font-size: 13px; letter-spacing: .02em; padding: 8px 15px;
+      box-shadow: 0 8px 20px rgba(43,36,29,.2);
+    }
+    .menu-media { position: relative; }
+    .menu-media img { box-shadow: var(--shadow-img); transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+    .menu-media:hover img { transform: scale(1.03); }
+
+    /* ---------- Visit us ---------- */
+    .visit { background: var(--cream-2); }
+    .visit .head { text-align: center; margin-bottom: clamp(36px,5vw,56px); }
+    .visit .eyebrow { margin-bottom: 14px; }
+    .visit-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px,3vw,32px); }
+    .venue {
+      background: var(--card); border: 1px solid rgba(43,36,29,.08); overflow: hidden;
+      box-shadow: 0 12px 34px rgba(43,36,29,.08); transition: transform .3s, box-shadow .3s;
+    }
+    .venue:hover { transform: translateY(-6px); box-shadow: 0 22px 48px rgba(43,36,29,.16); }
+    .venue iframe { display: block; width: 100%; height: 230px; border: 0; filter: grayscale(.15); }
+    .venue-body { padding: 26px 28px 28px; }
+    .venue h3 { font-weight: 700; font-size: 24px; margin: 0 0 8px; color: var(--ink); }
+    .venue address { font-style: normal; font-size: 16px; color: var(--muted); line-height: 1.5; margin: 0 0 18px; }
+    .directions { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; transition: gap .2s; }
+    .directions:hover { gap: 12px; }
+
+    /* ---------- Footer ---------- */
+    .site-footer { background: var(--ink); color: #e9dfd0; }
+    .footer-grid {
+      max-width: var(--wrap); margin: 0 auto; padding: clamp(48px,6vw,76px) var(--pad) 0;
+      display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: clamp(28px,4vw,48px);
+    }
+    .footer-logo { height: 76px; width: auto; margin-bottom: 20px; filter: brightness(0) invert(1); opacity: .94; }
+    .footer-tagline { font-family: "Newsreader", serif; font-style: italic; font-size: 20px; color: var(--gold); margin: 0 0 22px; }
+    .socials { display: flex; gap: 10px; }
+    .social {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 1px solid rgba(247,241,230,.2);
+      display: flex; align-items: center; justify-content: center;
+      color: #e9dfd0; font-weight: 700; font-size: 14px;
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .social:hover { background: var(--terracotta); border-color: var(--terracotta); color: #fff; }
+    .footer-col h4 { font-weight: 700; font-size: 15px; letter-spacing: .02em; color: #f7f1e6; margin: 0 0 16px; }
+    .footer-col address { font-style: normal; font-size: 15px; line-height: 1.7; color: #c8bcab; margin: 0 0 10px; }
+    .footer-col .phone { color: var(--gold); font-weight: 600; font-size: 15px; }
+    .footer-links { display: flex; flex-direction: column; gap: 11px; }
+    .footer-links a { color: #c8bcab; font-size: 15px; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bar {
+      max-width: var(--wrap); margin: clamp(28px,4vw,44px) auto 0; padding: clamp(32px,4vw,48px) var(--pad);
+      border-top: 1px solid rgba(247,241,230,.12);
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center;
+    }
+    .footer-bar span { font-size: 13.5px; color: #9a8d7c; }
+
+    /* ---------- Scroll reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .review-pill { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 860px) {
+      .nav, .header-cta { display: none; }
+      .burger { display: flex; }
+      .split, .hero, .counter .split, .visit-grid { grid-template-columns: 1fr !important; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero-media { width: 100%; }
+    }
+    @media (max-width: 520px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .partner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
-<body></body>
+
+<body id="top">
+
+  <header class="site-header" id="header">
+    <div class="header-inner">
+      <a href="#top" class="brand" aria-label="The Lion's Den — home">
+        <img src="assets/logo.png" alt="The Lion's Den">
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <div class="dropdown">
+          <button type="button" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">Locations</button>
+          <div class="dropdown-menu">
+            <a href="https://thelionsdencafe.co.uk/venue/lions-den-haslemere/">Haslemere</a>
+            <a href="https://thelionsdencafe.co.uk/venue/lions-den-midhurst/">Midhurst</a>
+          </div>
+        </div>
+        <a class="nav-link" href="https://thelionsdencafe.co.uk/gallery/">Gallery</a>
+        <a class="nav-link" href="https://thelionsdencafe.co.uk/contact-us/">Contact</a>
+      </nav>
+
+      <a class="btn btn-primary header-cta" href="https://thelionsdencafe.co.uk/menu/">Menu</a>
+
+      <button type="button" class="burger" id="burger" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="https://thelionsdencafe.co.uk/">Overview</a>
+      <a href="https://thelionsdencafe.co.uk/venue/lions-den-haslemere/">Haslemere</a>
+      <a href="https://thelionsdencafe.co.uk/venue/lions-den-midhurst/">Midhurst</a>
+      <a href="https://thelionsdencafe.co.uk/menu/">Our Menu</a>
+      <a href="https://thelionsdencafe.co.uk/gallery/">Gallery</a>
+      <a href="https://thelionsdencafe.co.uk/contact-us/">Contact Us</a>
+      <a class="btn btn-primary" href="https://thelionsdencafe.co.uk/menu/">View Menu</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="split hero">
+    <div>
+      <span class="eyebrow reveal">Proudly Local, Fiercely Independent</span>
+      <h1 class="reveal">Welcome to<br>The Lion's Den</h1>
+      <p class="hero-lede reveal">Designed and built by ourselves we take great pride in our creation and warmly welcome everyone that visits.</p>
+      <div class="hero-actions reveal">
+        <a class="btn btn-primary" href="https://thelionsdencafe.co.uk/menu/">View Our Menu</a>
+        <a class="btn btn-ghost" href="#visit">Find Us</a>
+      </div>
+      <div class="hero-locations reveal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bd6440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Haslemere <span class="dot">·</span> Midhurst
+      </div>
+    </div>
+
+    <div class="hero-media reveal">
+      <div class="img-frame">
+        <img class="ratio-45" src="https://thelionsdencafe.co.uk/wp-content/uploads/2024/04/Lions-Den-Coffee-Machine-Action-2.jpg" alt="Barista pulling a shot on the coffee machine at The Lion's Den" loading="eager">
+      </div>
+      <figure class="review-pill p1"><span class="stars">★★★★★</span><span class="quote">"Best coffee in town."</span></figure>
+      <figure class="review-pill p2"><span class="stars">★★★★★</span><span class="quote">"An absolute local gem."</span></figure>
+      <figure class="review-pill p3"><span class="stars">★★★★★</span><span class="quote">"Brunch heaven."</span></figure>
+    </div>
+  </section>
+
+  <!-- ON THE COUNTER -->
+  <section class="counter">
+    <div class="split">
+      <div class="img-frame reveal">
+        <img class="ratio-45" src="https://thelionsdencafe.co.uk/wp-content/uploads/2024/04/The-Lions-Den_Counter-Cakes-5.jpg" alt="Sweet and savoury counter food and cakes" loading="lazy">
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">On The Counter</span>
+        <h2 class="section-title">Why Do Our Customers Rave About Our Menu?</h2>
+        <p>Serving an all day homemade brunch menu with a superb range of sweet and savoury counter food. We use the finest and where possible local ingredients, our menu is unique, and we have a superb selection of vegetarian and vegan offerings.</p>
+        <div class="chips">
+          <span class="chip"><span class="mark">✦</span>All-day homemade brunch</span>
+          <span class="chip"><span class="mark">✦</span>Sweet &amp; savoury counter food</span>
+          <span class="chip"><span class="mark">✦</span>Finest local ingredients</span>
+          <span class="chip"><span class="mark">✦</span>Vegetarian &amp; vegan offerings</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEELING HUNGRY -->
+  <section class="split text-left">
+    <div>
+      <span class="eyebrow reveal">The Menu</span>
+      <h2 class="section-title reveal" style="margin-bottom:22px">Feeling Hungry?</h2>
+      <p class="lede reveal">We serve an all day homemade brunch menu with a superb range of sweet and savoury counter food.</p>
+      <p class="body-copy reveal">We really do use the finest and where possible local ingredients, our menu is unique, and we have a superb selection of vegetarian and vegan offerings to eat-in or takeaway.</p>
+
+      <a class="partner reveal" href="https://moonroast.co.uk/" target="_blank" rel="noopener">
+        <img src="assets/moonroast-moonshot.webp" alt="Moonroast Moonshot hand-roasted coffee bag">
+        <div>
+          <span class="eyebrow">In partnership with Moonroast</span>
+          <h3>Award-Winning Coffee, Hand Roasted In Hampshire</h3>
+          <p>Our award-winning coffee is hand roasted by our friends at Moonroast in Hampshire, and our Peru blend is simply the best.</p>
+          <div class="tags">
+            <span class="tag">Peru single-origin blend</span>
+            <span class="tag">Small-batch roasted</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="btn btn-primary reveal" href="https://thelionsdencafe.co.uk/menu/">View Our Menu</a>
+    </div>
+
+    <div class="menu-media reveal">
+      <img class="ratio-45" src="https://thelionsdencafe.co.uk/wp-content/uploads/2024/04/The-Lions-Den_Vegan-Breakfast-29-e1717066365945.jpg" alt="A vegan breakfast plate at The Lion's Den" loading="lazy">
+      <span class="badge">Veggie &amp; vegan friendly</span>
+    </div>
+  </section>
+
+  <!-- VISIT US -->
+  <section class="visit" id="visit">
+    <div class="wrap" style="padding-block:clamp(56px,8vw,100px)">
+      <div class="head reveal">
+        <span class="eyebrow">Two Homes</span>
+        <h2 class="section-title">Visit Us</h2>
+      </div>
+      <div class="visit-grid">
+        <article class="venue reveal">
+          <iframe title="Map of The Lion's Den Haslemere" src="https://maps.google.com/maps?q=The%20Lions%20Den%20Cafe%2C%20110%20Wey%20Hill%2C%20Haslemere%20GU27%201HS&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="venue-body">
+            <h3>The Lion's Den Haslemere</h3>
+            <address>110 Wey Hill, GU27 1HS</address>
+            <a class="directions" href="https://www.google.com/maps/dir/?api=1&destination=The%20Lions%20Den%20Cafe%2C%20110%20Wey%20Hill%2C%20Haslemere%20GU27%201HS" target="_blank" rel="noopener">Directions <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <article class="venue reveal">
+          <iframe title="Map of The Lion's Den Midhurst" src="https://maps.google.com/maps?q=The%20Lions%20Den%20Cafe%2C%20North%20Street%2C%20Midhurst%20GU29%209DJ&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="venue-body">
+            <h3>The Lion's Den Midhurst</h3>
+            <address>North Street, GU29 9DJ</address>
+            <a class="directions" href="https://www.google.com/maps/dir/?api=1&destination=The%20Lions%20Den%20Cafe%2C%20North%20Street%2C%20Midhurst%20GU29%209DJ" target="_blank" rel="noopener">Directions <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section class="split text-right">
+    <div class="img-frame reveal">
+      <img class="ratio-45" src="https://thelionsdencafe.co.uk/wp-content/uploads/2024/04/The-Lions-Den_Brunch-Burger-12-e1717067247316.jpg" alt="A brunch burger served at an evening event" loading="lazy">
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">After Hours</span>
+      <h2 class="section-title" style="margin-bottom:22px">Events &amp; Parties</h2>
+      <p class="lede">We host regular evening socials with an eclectic menu and good music.</p>
+      <p class="body-copy">The Den is available to host private functions and makes a casual retreat with full bar and catering services available.</p>
+      <a class="btn btn-primary" href="https://thelionsdencafe.co.uk/contact/?subject=Private+Event+Enquiry">Contact us for more details</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="assets/logo.png" alt="The Lion's Den">
+        <p class="footer-tagline">"proudly local, fiercely independent"</p>
+        <div class="socials">
+          <a class="social" href="https://www.instagram.com/thelionsdenhaslemere/" aria-label="Instagram">IG</a>
+          <a class="social" href="https://www.facebook.com/thelionsdenhaslemere/" aria-label="Facebook">f</a>
+          <a class="social" href="https://twitter.com/thelionsdenHQ" aria-label="Twitter / X">X</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Haslemere</h4>
+        <address>110 Wey Hill<br>Haslemere<br>Surrey</address>
+        <a class="phone" href="tel:01428643333">01428 643333</a>
+      </div>
+      <div class="footer-col">
+        <h4>Midhurst</h4>
+        <address>North Street<br>Midhurst<br>West Sussex</address>
+        <a class="phone" href="tel:01730923923">01730 923923</a>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://thelionsdencafe.co.uk/">Home</a>
+          <a href="https://thelionsdencafe.co.uk/menu/">Our Menu</a>
+          <a href="https://thelionsdencafe.co.uk/gallery/">Gallery</a>
+          <a href="https://thelionsdencafe.co.uk/contact-us/">Contact Us</a>
+          <a href="https://thelionsdencafe.co.uk/privacy-policy/">Privacy Policy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span>copyright © 2024 The Lion's Den</span>
+      <span>Haslemere &amp; Midhurst · Surrey &amp; West Sussex</span>
+    </div>
+  </footer>
+
+  <script>
+    // Header shadow / border on scroll
+    (function () {
+      var header = document.getElementById('header');
+      var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 12); };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // Mobile menu toggle
+    (function () {
+      var burger = document.getElementById('burger');
+      var menu = document.getElementById('mobileMenu');
+      burger.addEventListener('click', function () {
+        var open = menu.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      menu.addEventListener('click', function (e) {
+        if (e.target.tagName === 'A') { menu.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+      });
+    })();
+
+    // Scroll reveal
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      els.forEach(function (el, i) { el.style.transitionDelay = ((i % 5) * 0.06) + 's'; });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+</body>
 </html>
