@@ -284,10 +284,16 @@
       .counter .split { text-align: center; }
       .counter p { margin-inline: auto; }
       .counter .chips { justify-content: center; }
+      .split.text-left > div:first-child { text-align: center; }
+      .split.text-left .lede,
+      .split.text-left .body-copy { margin-inline: auto; }
+      .split.text-left .partner { justify-content: center; text-align: center; }
+      .split.text-left .partner img { display: none; }
+      .split.text-left .partner .tags { justify-content: center; }
     }
     @media (max-width: 520px) {
       .footer-grid { grid-template-columns: 1fr; }
-      .partner { flex-direction: column; align-items: flex-start; }
+      .partner { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
